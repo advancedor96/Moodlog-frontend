@@ -1,0 +1,17 @@
+.home {
+    height: 100%;
+}
+.fc-container {
+  height: 100vh !important;     /* 先用固定高度測試 */
+  min-height: 600px !important;
+  width: 100%;
+  background: white;
+  border: 1px solid #ddd;
+}
+::ng-deep .YYYYYY__content{
+    height: 100%;
+    background-color: lightyellow;
+}
+::ng-deep .fc .fc-daygrid-day-frame{
+    display: none;
+}

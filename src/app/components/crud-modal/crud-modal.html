@@ -1,0 +1,44 @@
+@if (isVisible()) {
+  <div class="modal-overlay" (click)="close()">
+    <div class="modal-content" (click)="$event.stopImmediatePropagation()">
+      <h2>{{ isEditing() ? '編輯日記' : '新增日記' }}</h2>
+
+      <div class="form-group">
+        <label>日期</label>
+        <input type="date"  [(ngModel)]="formData().entryDate" />
+      </div>
+
+      <div class="form-group mood-group">
+        <label class="radio-item bad" >
+            <input type="radio" name="mood" value="bad"  [checked]="formData().mood === 'bad'" 
+            (change)="setMood('bad')"
+            />壞
+        </label>
+        <label class="radio-item mid">
+            <input type="radio" name="mood" value="mid"  [checked]="formData().mood === 'mid'" (change)="setMood('mid')"
+            />普通
+        </label>
+        <label class="radio-item good">
+            <input type="radio" name="mood" value="good"  [checked]="formData().mood === 'good'" (change)="setMood('good')"
+            />好
+        </label>
+      </div>
+
+      <div class="form-group">
+        <label>內容</label>
+        <textarea 
+          [(ngModel)]="formData().content" 
+          rows="6"
+          placeholder="今天發生了什麼..."></textarea>
+      </div>
+
+      <div class="modal-actions">
+        @if(isEditing()) {
+          <button (click)="delete()" class="danger">刪除</button>
+        }
+        <button (click)="close()">取消</button>
+        <button (click)="save()" class="primary">儲存</button>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,54 @@
+<div class="calendar-container">
+  <app-crud-modal></app-crud-modal>
+<div class="calendar">
+  <!-- 標題 -->
+  <div class="header">
+    <button (click)="prevMonth()" class="nav-btn">←</button>
+    <div class="fontsize_bar">
+      <button type="button" class="nav-btn" (click)="minusFontSize()">-</button>
+      <span class="font-size-label">{{ fontSize() }}px</span>
+      <button type="button" class="nav-btn" (click)="addFontSize()">+</button>
+    </div>
+
+    <h2>{{ currentMonthYear() }}</h2>
+    <button (click)="nextMonth()" class="nav-btn">→</button>
+  </div>
+
+  <!-- 星期標題（從星期一開始） -->
+  <div class="weekdays">
+    <div>一</div>
+    <div>二</div>
+    <div>三</div>
+    <div>四</div>
+    <div>五</div>
+    <div>六</div>
+    <div>日</div>
+  </div>
+
+  <!-- 日曆主體 -->
+  <div class="days-grid">
+    @for (date of calendarDays(); track $index) {
+
+      @let entry = getEntryForDate(date);
+      <div class="day-cell"
+           [class.today]="isToday(date)"  (click)="onDateClick(date, entry)"
+           [class.other-month]="!date || (date.getMonth() !== currentDate().getMonth())">
+
+        @if (date && !entry) {
+          <div class="date-number" >{{ date.getDate() }}</div>
+        } @else if (date && entry) {
+          <div class="date-number" [class.good]="entry.mood=='good'" [class.mid]="entry.mood==='mid'" [class.bad]="entry.mood=='bad'" >{{ date.getDate() }}
+
+          </div>
+
+            <div class="diary-content">
+              <div class="content-text" [style.font-size.px]="fontSize()">
+                {{ entry.content }}
+              </div>
+            </div>
+        }
+      </div>
+    }
+  </div>
+</div>
+</div> 
