@@ -92,15 +92,10 @@
   font-size: 12px;
 }
 
-.today .date-number {
-  color: #3b82f6;
-  background: #dbeafe;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.date-number.today  {
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
 }
 
 .diary-content {

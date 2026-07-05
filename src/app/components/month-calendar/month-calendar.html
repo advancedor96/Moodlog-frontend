@@ -32,13 +32,13 @@
 
       @let entry = getEntryForDate(date);
       <div class="day-cell"
-           [class.today]="isToday(date)"  (click)="onDateClick(date, entry)"
+            (click)="onDateClick(date, entry)"
            [class.other-month]="!date || (date.getMonth() !== currentDate().getMonth())">
 
         @if (date && !entry) {
           <div class="date-number" >{{ date.getDate() }}</div>
         } @else if (date && entry) {
-          <div class="date-number" [class.good]="entry.mood=='good'" [class.mid]="entry.mood==='mid'" [class.bad]="entry.mood=='bad'" >{{ date.getDate() }}
+          <div class="date-number" [class.today]="isToday(date)"  [class.good]="entry.mood=='good'" [class.mid]="entry.mood==='mid'" [class.bad]="entry.mood=='bad'" >{{ date.getDate() }}
 
           </div>
 

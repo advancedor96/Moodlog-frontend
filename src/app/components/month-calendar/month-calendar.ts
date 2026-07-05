@@ -49,7 +49,7 @@ export class MonthCalendar {
   // 計算屬性
   calendarDays = computed(() => this.generateCalendarDays());
   currentMonthYear = computed(() => {
-    return this.currentDate().toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+    return this.currentDate().toLocaleDateString('en-US', { year: 'numeric', month: 'short' });
   });
 
   private generateCalendarDays(): (Date | null)[] {
