@@ -1,43 +1,40 @@
 @if (isVisible()) {
   <div class="modal-overlay" (click)="close()">
     <div class="modal-content" (click)="$event.stopImmediatePropagation()">
-      <h2>{{ isEditing() ? '編輯日記' : '新增日記' }}</h2>
+      <h2>{{ isEditing() ? 'Editing' : 'New' }}</h2>
 
       <div class="form-group">
-        <label>日期</label>
-        <input type="date"  [(ngModel)]="formData().entryDate" />
+        <ngxsmk-datepicker mode="single" [weekStart]="1" [value]="dateSig()" (valueChange)="updateDate($event)"> </ngxsmk-datepicker>
       </div>
 
       <div class="form-group mood-group">
         <label class="radio-item bad" >
             <input type="radio" name="mood" value="bad"  [checked]="formData().mood === 'bad'" 
             (change)="setMood('bad')"
-            />壞
+            />Bad
         </label>
         <label class="radio-item mid">
             <input type="radio" name="mood" value="mid"  [checked]="formData().mood === 'mid'" (change)="setMood('mid')"
-            />普通
+            />Mid
         </label>
         <label class="radio-item good">
             <input type="radio" name="mood" value="good"  [checked]="formData().mood === 'good'" (change)="setMood('good')"
-            />好
+            />Good
         </label>
       </div>
 
-      <div class="form-group">
-        <label>內容</label>
-        <textarea 
-          [(ngModel)]="formData().content" 
-          rows="6"
-          placeholder="今天發生了什麼..."></textarea>
-      </div>
+      <textarea 
+        class="my_textarea"
+        [(ngModel)]="formData().content" 
+        rows="6"
+        placeholder="What happened today..."></textarea>
 
       <div class="modal-actions">
         @if(isEditing()) {
-          <button (click)="delete()" class="danger">刪除</button>
+          <button (click)="delete()" class="danger">Delete</button>
         }
-        <button (click)="close()">取消</button>
-        <button (click)="save()" class="primary">儲存</button>
+        <button (click)="close()">Cancel</button>
+        <button (click)="save()" class="primary">Save</button>
       </div>
     </div>
   </div>

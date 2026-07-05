@@ -3,15 +3,32 @@ import { Component, Inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-
+import { DatepickerValue , NgxsmkDatepickerComponent} from "ngxsmk-datepicker";
 @Component({
   selector: 'app-crud-modal',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent],
   templateUrl: './crud-modal.html',
   styleUrl: './crud-modal.scss',
 })
 export class CrudModal {
+
+  dateSig = signal<DatepickerValue>(null);
+  // myFuck = signal<string>('');
   // 表單資料
+  updateDate(value: DatepickerValue | null) {
+    if(!value){ return ;}
+    // console.log("updateDate valueOf:", value);
+    if (value instanceof Date) {
+      const year = value.getFullYear();
+      const month = String(value.getMonth() + 1).padStart(2, '0');
+      const day = String(value.getDate()).padStart(2, '0');
+      
+      const dateString = `${year}-${month}-${day}`;
+      console.log(dateString);  // "2026-07-05" ✓ 正確！
+      // this.myFuck.set(dateString);
+      this.formData.update(data => ({ ...data, entryDate: dateString }));
+    }
+  }
   formData = signal<MoodLog>({
     entryDate: '',
     mood: 'mid',
@@ -26,6 +43,7 @@ export class CrudModal {
 
   // 開啟 Modal（可從外部呼叫）
   open(date: string, entry?: MoodLog | null) {
+    this.dateSig.set(new Date(date));
     if (entry === null || entry === undefined) {
       console.log("沒有值，全新:");
       this.formData.set({
@@ -58,7 +76,6 @@ export class CrudModal {
     if(this.isEditing()){
       this.http.put<MoodLog>(this.apiUrl+'/'+this.id(), this.formData()).subscribe({
         next: (config) => {
-          alert('儲存成功！');
           this.close();
           window.location.reload();
         },
@@ -70,7 +87,6 @@ export class CrudModal {
     }else{
       this.http.post<MoodLog>(this.apiUrl, this.formData()).subscribe({
         next: (config) => {
-          alert('儲存成功！');
           this.close();
           window.location.reload();
         },
