@@ -1,7 +1,8 @@
-import { Component , Input, computed, signal, ViewChild } from '@angular/core';
+import { Component , input, computed, signal, viewChild, model } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { CrudModal } from '../crud-modal/crud-modal';
 import { MoodLog } from '../../pages/home/log.model';
+import { Mychild } from "../mychild/mychild";
 // interface DiaryEntry {
 //   id: string;
 //   userId: string;
@@ -11,19 +12,21 @@ import { MoodLog } from '../../pages/home/log.model';
 // }
 @Component({
   selector: 'app-month-calendar',
-  imports: [CrudModal],
+  imports: [CrudModal, Mychild],
   templateUrl: './month-calendar.html',
   styleUrl: './month-calendar.scss',
 })
 export class MonthCalendar {
-  @ViewChild(CrudModal) modal!: CrudModal;
+  p_v = model<number>(0);
+  modal = viewChild.required<CrudModal>('ohmygod');
+  // @ViewChild(CrudModal) modal!: CrudModal;
 
   // 點擊某一天
   onDateClick(date: Date| null, entry: MoodLog | null) {
     if(date === null) { return ;}
     const dateStr = date.toISOString().split('T')[0];
     console.log('這裡:  ', dateStr, entry);
-    this.modal.open(dateStr, entry);
+    this.modal().open(dateStr, entry);
     
   }
 
@@ -38,7 +41,7 @@ export class MonthCalendar {
   }
 
   // 輸入資料
-  @Input() entries: MoodLog[] = [];
+  entries = input<MoodLog[]>([]);
 
   // 目前顯示的月份（預設今天）
   currentDate = signal(new Date());
@@ -110,7 +113,7 @@ export class MonthCalendar {
   getEntryForDate(date: Date | null): MoodLog | null {
     if (!date) return null;
     const dateStr = date.toISOString().split('T')[0];
-    return this.entries.find(e => e.entryDate === dateStr) ?? null;
+    return this.entries().find(e => e.entryDate === dateStr) ?? null;
   }
 
   isToday(date: Date | null): boolean {

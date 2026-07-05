@@ -3,18 +3,19 @@
   top: 0; left: 0; right: 0; bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: 1000;
 }
 
 .modal-content {
   background: white;
-  padding: 24px;
+  padding: 10px;
+  margin-top: 20px;
   border-radius: 12px;
   width: 90%;
   max-width: 420px;
-  max-height: 85vh;
+  height: 85vh;
   overflow-y: auto;
 }
 
@@ -52,7 +53,9 @@
   border-radius: 8px;
   font-size: 16px;
 }
-
+.form-group textarea {
+  height: 400px;
+}
 .modal-actions {
   margin-top: 24px;
   display: flex;
