@@ -1,0 +1,25 @@
+<div class="login-wrapper">
+  <div class="login-card">
+    <h1>Moodlog</h1>
+
+    <form (ngSubmit)="login()">
+      <div class="field">
+        <label>Account</label>
+        <input type="text" [ngModel]="account()" (ngModelChange)="account.set($event)" name="account" placeholder="" />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" [ngModel]="password()" (ngModelChange)="password.set($event)" name="password" placeholder="" />
+      </div>
+
+      @if (errorMsg()) {
+        <p class="error">{{ errorMsg() }}</p>
+      }
+
+      <button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Login...' : 'Login' }}
+      </button>
+    </form>
+  </div>
+</div>

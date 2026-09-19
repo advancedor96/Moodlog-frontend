@@ -1,4 +1,7 @@
 <div class="home">
+  @if (errorMessage()){
+    <h1>{{ errorMessage() }}</h1>
+  }
   <!-- <div #calendarEl class="fc-container"></div> -->
   <app-month-calendar [entries]="logs()" />
 </div>

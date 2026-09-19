@@ -5,10 +5,11 @@
   <!-- 標題 -->
   <div class="header">
     <button (click)="prevMonth()" class="nav-btn">←</button>
+    <button type="button" class="logout-btn" (click)="logout()">Logout</button>
     <div class="fontsize_bar">
-      <button type="button" class="nav-btn" (click)="minusFontSize()">-</button>
+      <div type="button" (click)="minusFontSize()">-</div>
       <span class="font-size-label">{{ fontSize() }}px</span>
-      <button type="button" class="nav-btn" (click)="addFontSize()">+</button>
+      <div type="button" (click)="addFontSize()">+</div>
     </div>
 
     <h2>{{ currentMonthYear() }}</h2>

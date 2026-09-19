@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DatepickerValue , NgxsmkDatepickerComponent} from "ngxsmk-datepicker";
+import { ApiUrl } from "../../my_var";
 @Component({
   selector: 'app-crud-modal',
   imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent],
@@ -37,7 +38,7 @@ export class CrudModal {
   id = signal<string>('');
   isVisible = signal(false);
   isEditing = signal(false);
-  private apiUrl = 'https://moodlog.duckdns.org/api/logs';
+  private apiUrl = `${ApiUrl}/api/logs`;
   constructor(private http: HttpClient) {}
 
 

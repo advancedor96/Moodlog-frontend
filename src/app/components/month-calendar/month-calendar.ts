@@ -1,8 +1,12 @@
-import { Component , input, computed, signal, viewChild, model } from '@angular/core';
+import { Component , input, computed, signal, viewChild, model, inject } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { CrudModal } from '../crud-modal/crud-modal';
+import { Router } from '@angular/router';
 import { MoodLog } from '../../pages/home/log.model';
 import { Mychild } from "../mychild/mychild";
+import { ApiUrl } from '../../my_var';
+import { finalize } from 'rxjs';
 // interface DiaryEntry {
 //   id: string;
 //   userId: string;
@@ -17,6 +21,8 @@ import { Mychild } from "../mychild/mychild";
   styleUrl: './month-calendar.scss',
 })
 export class MonthCalendar {
+  private http = inject(HttpClient);
+  private router = inject(Router);
   p_v = model<number>(0);
   modal = viewChild.required<CrudModal>('ohmygod');
   // @ViewChild(CrudModal) modal!: CrudModal;
@@ -31,13 +37,33 @@ export class MonthCalendar {
   }
 
   fontSize = signal(10);
+  constructor() {
+    const savedFontSize = localStorage.getItem('fontSize');
+    if (savedFontSize) {
+      this.fontSize.set(parseInt(savedFontSize, 10));
+    }
+  }
+  logout() {
+    this.http.get(`${ApiUrl}/api/auth/logout`).subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: err => {
+        console.log('logout failed', err);
+      }
+    });
+  }
   minusFontSize(){
     if (this.fontSize() > 1) {
-      this.fontSize.update(size => size - 1);
+      const newSize = this.fontSize() - 1;
+      this.fontSize.set(newSize);
+      localStorage.setItem('fontSize', newSize.toString());
     }
   }
   addFontSize() {
-    this.fontSize.update(size => size + 1);
+    const newSize = this.fontSize() + 1;
+    this.fontSize.set(newSize);
+    localStorage.setItem('fontSize', newSize.toString());
   }
 
   // 輸入資料

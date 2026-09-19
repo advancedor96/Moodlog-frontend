@@ -5,6 +5,7 @@ import { inject } from '@angular/core';
 
 import { MoodLog } from './log.model';
 import { MonthCalendar } from '../../components/month-calendar/month-calendar';
+import  { ApiUrl } from '../../my_var';
 @Component({
   selector: 'app-home',
   imports: [MonthCalendar],
@@ -17,15 +18,20 @@ import { MonthCalendar } from '../../components/month-calendar/month-calendar';
 export class Home implements OnInit{
   private http = inject(HttpClient);
   logs = signal<MoodLog[]>([]);
+  errorMessage = signal<string>('');
 
   ngOnInit(): void {
-    this.http.get<MoodLog[]>("https://moodlog.duckdns.org/api/logs").subscribe({
+    this.http.get<MoodLog[]>(`${ApiUrl}/api/logs`).subscribe({
         next: data => {
           this.logs.set(data);
+          this.errorMessage.set('');
         
         },
         error: err => {
-          console.log(err);
+          console.log(err, err.status);
+          if(err.status === 0){
+            this.errorMessage.set("該死的cors問題");
+          }
         }
       });
 
