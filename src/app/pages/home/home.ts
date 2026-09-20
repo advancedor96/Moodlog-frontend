@@ -6,9 +6,10 @@ import { inject } from '@angular/core';
 import { MoodLog } from './log.model';
 import { MonthCalendar } from '../../components/month-calendar/month-calendar';
 import  { ApiUrl } from '../../my_var';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-home',
-  imports: [MonthCalendar],
+  imports: [MonthCalendar, ButtonModule],
   providers: [
 
   ],

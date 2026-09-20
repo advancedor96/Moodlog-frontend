@@ -3,7 +3,7 @@ import { Component, Inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { DatepickerValue , NgxsmkDatepickerComponent} from "ngxsmk-datepicker";
+import { DatepickerValue , NgxsmkDatepickerComponent} from 'ngxsmk-datepicker';
 import { ApiUrl } from "../../my_var";
 @Component({
   selector: 'app-crud-modal',
