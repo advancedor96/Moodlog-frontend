@@ -11,8 +11,8 @@ import { ApiUrl } from '../../my_var';
   styleUrl: './login.scss',
 })
 export class Login {
-  account = signal('');
-  password = signal('');
+  account = signal('a1');
+  password = signal('a1');
   errorMsg = signal('');
   loading = signal(false);
 

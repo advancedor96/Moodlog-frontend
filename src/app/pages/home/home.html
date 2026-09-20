@@ -1,9 +1,13 @@
 <div class="home">
-  <p-button label="Check" />
-  <h1>sdfasdfsfadsf</h1>
   @if (errorMessage()){
     <h1>{{ errorMessage() }}</h1>
   }
-  <!-- <div #calendarEl class="fc-container"></div> -->
-  <app-month-calendar [entries]="logs()" />
+  @if (isLoading()){
+    <p-blockui [blocked]="isLoading()" class="xxx_blockui">
+      <p-progress-spinner ariaLabel="loading" />
+    </p-blockui>
+  }@else {
+    <app-month-calendar [entries]="logs()" />
+  }
+  <!-- <app-month-calendar [entries]="logs()" /> -->
 </div>
