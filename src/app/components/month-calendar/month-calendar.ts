@@ -1,4 +1,4 @@
-import { Component , input, computed, signal, viewChild, model, inject } from '@angular/core';
+import { Component , input, computed, signal, viewChild, model, inject, output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CrudModal } from '../crud-modal/crud-modal';
@@ -21,6 +21,7 @@ import { finalize } from 'rxjs';
   styleUrl: './month-calendar.scss',
 })
 export class MonthCalendar {
+  dataChanged = output<void>();
   private http = inject(HttpClient);
   private router = inject(Router);
   p_v = model<number>(0);
@@ -148,5 +149,8 @@ export class MonthCalendar {
     return date.getDate() === today.getDate() &&
            date.getMonth() === today.getMonth() &&
            date.getFullYear() === today.getFullYear();
+  }
+  onDataChanged(){
+    this.dataChanged.emit();
   }
 }

@@ -7,7 +7,6 @@
       <p-progress-spinner ariaLabel="loading" />
     </p-blockui>
   }@else {
-    <app-month-calendar [entries]="logs()" />
+    <app-month-calendar [entries]="logs()" (dataChanged)="loadData()"/>
   }
-  <!-- <app-month-calendar [entries]="logs()" /> -->
 </div>

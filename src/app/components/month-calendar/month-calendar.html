@@ -1,5 +1,5 @@
 <div class="calendar-container">
-  <app-crud-modal #ohmygod></app-crud-modal>
+  <app-crud-modal #ohmygod (dataChanged)="onDataChanged()"></app-crud-modal>
   <!-- <app-mychild [(c_v)]="p_v"></app-mychild> -->
 <div class="calendar">
   <!-- 標題 -->

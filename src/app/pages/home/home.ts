@@ -23,6 +23,9 @@ export class Home implements OnInit{
   isLoading = signal<boolean>(false);
 
   ngOnInit(): void {
+    this.loadData();
+  }
+  loadData(): void{
     this.isLoading.set(true);
     this.http.get<MoodLog[]>(`${ApiUrl}/api/logs`).subscribe({
         next: data => {
@@ -39,7 +42,6 @@ export class Home implements OnInit{
           }
         }
       });
-
   }
 
 

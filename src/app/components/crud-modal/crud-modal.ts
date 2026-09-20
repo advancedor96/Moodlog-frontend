@@ -1,18 +1,21 @@
 import {MoodLog} from "../../pages/home/log.model";
-import { Component, Inject, signal } from '@angular/core';
+import { Component, Inject, signal, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DatepickerValue , NgxsmkDatepickerComponent} from 'ngxsmk-datepicker';
 import { ApiUrl } from "../../my_var";
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { BlockUI } from 'primeng/blockui';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-crud-modal',
-  imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent],
+  imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent, BlockUI, ProgressSpinnerModule, ButtonModule],
   templateUrl: './crud-modal.html',
   styleUrl: './crud-modal.scss',
 })
 export class CrudModal {
-
+  dataChanged = output<void>();
   dateSig = signal<DatepickerValue>(null);
   // myFuck = signal<string>('');
   // 表單資料
@@ -38,6 +41,7 @@ export class CrudModal {
   id = signal<string>('');
   isVisible = signal(false);
   isEditing = signal(false);
+  isLoading = signal(false);
   private apiUrl = `${ApiUrl}/api/logs`;
   constructor(private http: HttpClient) {}
 
@@ -75,24 +79,30 @@ export class CrudModal {
   }
   save() {
     if(this.isEditing()){
+      this.isLoading.set(true);
       this.http.put<MoodLog>(this.apiUrl+'/'+this.id(), this.formData()).subscribe({
         next: (config) => {
+          this.isLoading.set(false);
           this.close();
-          window.location.reload();
+          this.dataChanged.emit();
         },
         error: (err) => {
-        alert('儲存失敗:'+err);
+          this.isLoading.set(false);
+          alert('儲存失敗:'+err);
           console.error(err);
         },
       });
     }else{
+      this.isLoading.set(true);
       this.http.post<MoodLog>(this.apiUrl, this.formData()).subscribe({
         next: (config) => {
+          this.isLoading.set(false);
           this.close();
-          window.location.reload();
+          this.dataChanged.emit();
         },
         error: (err) => {
-        alert('儲存失敗:'+err);
+          this.isLoading.set(false);
+          alert('儲存失敗:'+err);
           console.error(err);
         },
       });
@@ -105,7 +115,7 @@ export class CrudModal {
         next: (config) => {
           alert('刪除成功！');
           this.close();
-          window.location.reload();
+          this.dataChanged.emit();
         },
         error: (err) => {
           alert('失敗:'+err);
