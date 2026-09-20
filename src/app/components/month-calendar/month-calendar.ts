@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { CrudModal } from '../crud-modal/crud-modal';
 import { Router } from '@angular/router';
 import { MoodLog } from '../../pages/home/log.model';
-import { Mychild } from "../mychild/mychild";
 import { ApiUrl } from '../../my_var';
 import { finalize } from 'rxjs';
 // interface DiaryEntry {
@@ -16,7 +15,7 @@ import { finalize } from 'rxjs';
 // }
 @Component({
   selector: 'app-month-calendar',
-  imports: [CrudModal, Mychild],
+  imports: [CrudModal],
   templateUrl: './month-calendar.html',
   styleUrl: './month-calendar.scss',
 })
