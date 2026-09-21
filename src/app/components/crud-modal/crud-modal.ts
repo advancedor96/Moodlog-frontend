@@ -6,16 +6,16 @@ import { HttpClient } from '@angular/common/http';
 import { DatepickerValue , NgxsmkDatepickerComponent} from 'ngxsmk-datepicker';
 import { ApiUrl } from "../../my_var";
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { BlockUI } from 'primeng/blockui';
 import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-crud-modal',
-  imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent, BlockUI, ProgressSpinnerModule, ButtonModule],
+  imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent, ProgressSpinnerModule, ButtonModule],
   templateUrl: './crud-modal.html',
   styleUrl: './crud-modal.scss',
 })
 export class CrudModal {
   dataChanged = output<void>();
+  onClose = output<void>();
   dateSig = signal<DatepickerValue>(null);
   // myFuck = signal<string>('');
   // 表單資料
@@ -39,7 +39,7 @@ export class CrudModal {
     content: ''
   });
   id = signal<string>('');
-  isVisible = signal(false);
+  isVisible = signal(true);
   isEditing = signal(false);
   isLoading = signal(false);
   private apiUrl = `${ApiUrl}/api/logs`;
@@ -73,6 +73,7 @@ export class CrudModal {
   close() {
     this.isVisible.set(false);
     this.formData.set({ entryDate: '', mood: 'mid', content: '' });
+    this.onClose.emit();
   }
   setMood(value: 'bad' | 'mid' | 'good') {
     this.formData.update(data => ({ ...data, mood: value }));

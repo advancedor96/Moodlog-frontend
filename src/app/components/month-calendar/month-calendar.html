@@ -1,6 +1,8 @@
 <div class="calendar-container">
-  <app-crud-modal #ohmygod (dataChanged)="onDataChanged()"></app-crud-modal>
-  <!-- <app-mychild [(c_v)]="p_v"></app-mychild> -->
+    <p-dialog [modal]="true" [visible]="showModal()" position="center"  showHeader="false">
+      <app-crud-modal #ohmygod (dataChanged)="onDataChanged()" (onClose)="showModal.set(false)"></app-crud-modal>
+    </p-dialog>
+  <!-- <app-crud-modal #ohmygod (dataChanged)="onDataChanged()"></app-crud-modal> -->
 <div class="calendar">
   <!-- 標題 -->
   <div class="header">

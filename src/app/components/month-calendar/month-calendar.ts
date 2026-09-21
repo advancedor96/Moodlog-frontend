@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MoodLog } from '../../pages/home/log.model';
 import { ApiUrl } from '../../my_var';
 import { finalize } from 'rxjs';
+import { DialogModule } from 'primeng/dialog';
 // interface DiaryEntry {
 //   id: string;
 //   userId: string;
@@ -15,7 +16,7 @@ import { finalize } from 'rxjs';
 // }
 @Component({
   selector: 'app-month-calendar',
-  imports: [CrudModal],
+  imports: [CrudModal, DialogModule],
   templateUrl: './month-calendar.html',
   styleUrl: './month-calendar.scss',
 })
@@ -25,11 +26,13 @@ export class MonthCalendar {
   private router = inject(Router);
   p_v = model<number>(0);
   modal = viewChild.required<CrudModal>('ohmygod');
+  showModal = signal(false);
   // @ViewChild(CrudModal) modal!: CrudModal;
 
   // 點擊某一天
   onDateClick(date: Date| null, entry: MoodLog | null) {
     if(date === null) { return ;}
+    this.showModal.set(true);
     const dateStr = date.toISOString().split('T')[0];
     console.log('這裡:  ', dateStr, entry);
     this.modal().open(dateStr, entry);
