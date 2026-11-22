@@ -7,9 +7,10 @@ import { DatepickerValue , NgxsmkDatepickerComponent} from 'ngxsmk-datepicker';
 import { ApiUrl } from "../../my_var";
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ButtonModule } from 'primeng/button';
+import { BlockUI } from 'primeng/blockui';
 @Component({
   selector: 'app-crud-modal',
-  imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent, ProgressSpinnerModule, ButtonModule],
+  imports: [CommonModule, FormsModule, NgxsmkDatepickerComponent, ProgressSpinnerModule, ButtonModule, BlockUI],
   templateUrl: './crud-modal.html',
   styleUrl: './crud-modal.scss',
 })

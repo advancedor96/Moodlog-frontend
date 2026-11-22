@@ -1,8 +1,8 @@
 @if (isVisible()) {
   <!-- <div class="modal-overlay" (click)="close()"> -->
-    <!-- <p-blockui [blocked]="isLoading()" class="xxx_blockui">
+    <p-blockui [blocked]="isLoading()" class="xxx_blockui">
       <p-progress-spinner ariaLabel="loading" />
-    </p-blockui> -->
+    </p-blockui>
     <div class="modal-content" (click)="$event.stopImmediatePropagation()">
       <h2>{{ isEditing() ? 'Editing' : 'New' }}</h2>
 
